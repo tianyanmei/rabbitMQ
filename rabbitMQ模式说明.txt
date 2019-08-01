@@ -1,0 +1,23 @@
+1.rabbitmq 使用的是一种叫做 AMQP 的协议来通信。
+  AMQP 是 dvanced Message Queuing Protocol 的缩写
+
+2.消息路由过程
+  与 ActiveMQ 拿到消息就直接放在队列等待消费者拿走不同，
+   Rabbit 拿到消息之后，会先交给 交换机 （Exchange）,
+    然后交换机再根据预先设定的不同绑定( Bindings )策略，
+    来确定要发给哪个队列。
+    有了 Exchange 和 Bindings， RabbitMQ 就可以灵活地支撑各种模式
+
+3.模式
+ RabbitMQ提供了四种Exchange模式：fanout,direct,topic,header 。
+    header模式在实际使用中较少，这里只讨论前三种模式.
+
+ fanout 广播模式：消息来了，会发给所有的队列
+ direct:指定队列模式：消息来了，只发给指定的 Queue, 其他Queue 都收不到。
+ topic：主题模式：
+   消息来源有： 美国新闻，美国天气，欧洲新闻，欧洲天气。
+            如果你想看 美国主题： 那么就会收到 美国新闻，美国天气。
+            如果你想看 新闻主题： 那么就会收到 美国新闻，欧洲新闻。
+            如果你想看 天气主题： 那么就会收到 美国天气，欧洲天气。
+            如果你想看 欧洲主题： 那么就会收到 欧洲新闻，欧洲天气。
+
